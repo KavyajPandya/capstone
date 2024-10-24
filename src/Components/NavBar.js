@@ -4,14 +4,16 @@ export default function NavBar() {
     return (
       <nav
         style={{
-          height: "9%",
-          width: "100%",
+          height: "12vh",
+          width: "100vw",
           backgroundColor: "rgb(1, 92, 166)",
           padding: "1%", 
           textAlign: "center",
           display: "flex",
+          boxSizing: "border-box", 
           justifyContent: "center",
-          gap:"9%"
+          alignItems: "center",
+          gap:"3%"
         }}
       >
         <NavLink style={{textDecoration:"none",color:"white" }} to="/"><h1>Explore KWC</h1></NavLink>

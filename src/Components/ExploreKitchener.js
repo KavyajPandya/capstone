@@ -6,8 +6,8 @@ export default function ExploreKitchener(){
         <Box
             sx={{
                 position: 'relative',
-                width: '100%',
-                height: '83vh',
+                width: '100vw',
+                height: '88vh',
                 overflow: 'hidden', 
                 display: 'flex',
                 justifyContent: 'center',
@@ -24,7 +24,8 @@ export default function ExploreKitchener(){
                 position: 'absolute',
                 top: 0,
                 left: 0,
-                width: '100%',
+                overflow: 'hidden',
+                width: '100vw',
                 height: '100%',
                 objectFit: 'cover',
                 opacity: 0.6, 
@@ -52,7 +53,7 @@ export default function ExploreKitchener(){
                     fontSize: { xs: '2rem', md: '4rem' }, 
                 }}
                 >
-                Explore Kitchener
+                Explore kitchener
                 </Typography>
             </Box>
         </Box>

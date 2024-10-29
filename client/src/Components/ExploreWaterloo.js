@@ -33,7 +33,7 @@ export default function ExploreWaterloo(){
             <Box
                 sx={{
                     position: 'relative',
-                    width: '100%',
+                    width: '100vw',
                     height: '88vh',
                     overflow: 'hidden',
                     display: 'flex',
@@ -41,7 +41,7 @@ export default function ExploreWaterloo(){
                     alignItems: 'center',
                 }}
             >
-                {/* Hero Background Video */}
+               
                 <Box
                     component="video"
                     autoPlay
@@ -62,7 +62,7 @@ export default function ExploreWaterloo(){
                     Your browser does not support the video tag.
                 </Box>
 
-                {/* Heading */}
+              
                 <Box
                     sx={{
                         position: 'relative',
@@ -84,11 +84,11 @@ export default function ExploreWaterloo(){
                 </Box>
             </Box>
 
-            {/* Slider Section */}
+           
             <Box
                 sx={{
                     position: 'relative',
-                    width: '100%',
+                    width: '100vw',
                     height: '100vh',
                     overflow: 'hidden',
                     display: 'flex',
@@ -99,7 +99,7 @@ export default function ExploreWaterloo(){
                     backgroundPosition: 'center',
                 }}
             >
-                {/* Slider Component */}
+               
                 <Carousel
                     autoPlay={false}
                     navButtonsAlwaysVisible

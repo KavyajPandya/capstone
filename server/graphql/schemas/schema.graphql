@@ -3,14 +3,28 @@ type Event {
     title: String!
     location: String!
     description: String!
-    date: String! # Date as String for simplicity in GraphQL
+    date: String!
     price: String!
     capacity: String
+    image_url: String
+}
+
+type User {
+    id: ID!
+    fullName: String!
+    email: String!
+    mobile: String!
+}
+
+type AuthResponse {
+    message: String!
+    user: User
 }
 
 type Query {
-    events: [Event] # Query to retrieve all events
-    event(event_id: Int!): Event # Query to retrieve a specific event by ID
+    events: [Event]
+    event(event_id: Int!): Event
+    users: [User]
 }
 
 type Mutation {
@@ -21,6 +35,34 @@ type Mutation {
         description: String!,
         date: String!,
         price: String!,
-        capacity: String
+        capacity: String,
+        image_url: String
     ): Event
+
+    signup(
+        fullName: String!,
+        email: String!,
+        password: String!,
+        mobile: String!
+    ): User
+
+    login(
+        email: String!,
+        password: String!
+    ): AuthResponse
+
+    sendResetCode(
+        email: String!,
+        mobile: String!
+    ): String
+
+    verifyResetCode(
+        email: String!,
+        code: String!
+    ): String
+
+    resetPassword(
+        email: String!,
+        newPassword: String!
+    ): AuthResponse  # Added resetPassword mutation
 }

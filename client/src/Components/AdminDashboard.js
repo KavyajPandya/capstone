@@ -1,0 +1,4 @@
+import React, { useState } from 'react';
+export default function AdminDashboard() {
+    return (<h1>Admin</h1>);
+}

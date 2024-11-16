@@ -7,6 +7,7 @@ import ExploreKWC from './Components/ExploreKWC';
 import ExploreWaterloo from './Components/ExploreWaterloo';
 import EventsPage from './Components/EventsPage';
 import EventDetailsPage from './Components/EventDetailsPage';
+import AdminDashboard from './Components/AdminDashboard';
 import NavBar from './Components/NavBar';
 import Login from './Components/Login'; 
 import Signup from './Components/Signup'; 
@@ -24,6 +25,8 @@ function App() {
             <Route path="kitchener" element={<ExploreKitchener />} />
             <Route path="waterloo" element={<ExploreWaterloo />} />
             <Route path="cambridge" element={<ExploreCambridge />} />
+            <Route path="admin" element={<AdminDashboard />} />
+
           </Route>
           <Route path="/events" element={<EventsPage />} />
           <Route path="/events/:event_id" element={<EventDetailsPage />} />

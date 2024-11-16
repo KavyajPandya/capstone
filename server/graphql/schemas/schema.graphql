@@ -38,6 +38,19 @@ type Mutation {
         capacity: String,
         image_url: String
     ): Event
+    
+    deleteEvent(eventId: ID!): Boolean
+
+    updateEvent(
+        event_id: Int!,
+        title: String,
+        location: String,
+        description: String,
+        date: String,
+        price: String,
+        capacity: String,
+        image_url: String
+    ): Event
 
     signup(
         fullName: String!,

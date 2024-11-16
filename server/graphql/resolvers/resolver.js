@@ -53,6 +53,31 @@ export const resolvers = {
                 throw new Error('Error adding event');
             }
         },
+        deleteEvent: async (_, { eventId }) => {
+            try {
+              await events.deleteOne({ event_id: eventId }); 
+              return true; 
+            } catch (error) {
+              throw new Error("Error deleting event");
+            }
+        },
+        updateEvent: async (_, { event_id, title, location, description, date, price, capacity, image_url }) => {
+        try {
+            const updatedEvent = await events.findOneAndUpdate(
+            { event_id }, 
+            { title, location, description, date: new Date(date), price, capacity, image_url }, 
+            { new: true } 
+            );
+        
+            if (!updatedEvent) {
+            throw new Error("Event not found");
+            }
+        
+            return updatedEvent;
+        } catch (err) {
+            throw new Error("Error updating event: " + err.message);
+        }
+        },
         signup: async (_, { fullName, email, password, mobile }) => {
             try {
                 const newUser = new User({

@@ -8,6 +8,7 @@ import ExploreWaterloo from './Components/ExploreWaterloo';
 import EventsPage from './Components/EventsPage';
 import EventDetailsPage from './Components/EventDetailsPage';
 import AdminDashboard from './Components/AdminDashboard';
+import EventForm from './Components/EventForm';
 import NavBar from './Components/NavBar';
 import Login from './Components/Login'; 
 import Signup from './Components/Signup'; 
@@ -25,13 +26,14 @@ function App() {
             <Route path="kitchener" element={<ExploreKitchener />} />
             <Route path="waterloo" element={<ExploreWaterloo />} />
             <Route path="cambridge" element={<ExploreCambridge />} />
-            <Route path="admin" element={<AdminDashboard />} />
-
           </Route>
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/events/new" element={<EventForm />} />
+          <Route path="/admin/events/edit/:event_id" element={<EventForm />} />
           <Route path="/events" element={<EventsPage />} />
           <Route path="/events/:event_id" element={<EventDetailsPage />} />
-          <Route path="/login" element={<Login />} /> 
-          <Route path="/signup" element={<Signup />} /> 
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="*" element={<ExploreKWC />} />
         </Routes>
       </div>

@@ -54,7 +54,6 @@ const EventDetailsPage = () => {
     if (loading) return <Typography variant="h6">Loading event details...</Typography>;
     if (error) return <Typography variant="h6" color="error">Error: {error}</Typography>;
 
-    // Format the date for display if it exists
     const formattedDate = event?.date 
         ? new Date(event.date).toLocaleDateString('en-US', {
             year: 'numeric',
@@ -65,20 +64,19 @@ const EventDetailsPage = () => {
 
     return (
         <Container sx={{ marginTop: 4 }}>
-            <Card sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, padding: 2 }}>
+            <Card sx={{ display: 'flex', flexDirection: 'column', padding: 2 }}>
                 <img
                     src={event.image_url} 
                     alt={event.title}
                     style={{
                         width: '100%', 
-                        maxWidth: '300px', 
-                        height: '300px', 
-                        objectFit: 'cover',
-                        borderRadius: '4px',
-                        marginRight: '16px',
+                        maxHeight: '300px',
+                        height: 'auto', 
+                        objectFit: 'cover', 
+                        borderRadius: '4px 4px 0 0',
                     }}
                 />
-                <CardContent sx={{ flexGrow: 1, textAlign: 'left' }}>
+                <CardContent sx={{ textAlign: 'left', paddingTop: 2 }}>
                     <Typography variant="h4" gutterBottom>{event.title}</Typography>
                     <Typography variant="h6" color="textSecondary">{event.location}</Typography>
                     <Typography variant="body1" paragraph>{event.description}</Typography>

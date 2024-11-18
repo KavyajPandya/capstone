@@ -1,6 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Grid, Card, CardContent, Button, Typography } from "@mui/material";
+import {
+  Container,
+  Grid,
+  Card,
+  CardContent,
+  Button,
+  Typography,
+  CardActions,
+  CircularProgress,
+  Alert,
+} from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EventIcon from "@mui/icons-material/Event";
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import AddIcon from "@mui/icons-material/Add";
+import GroupIcon from "@mui/icons-material/Group";
+import logo from '../../public/assets/images/blue-logo-transepernt.png';
 
 const AdminDashboard = () => {
   const [events, setEvents] = useState([]);
@@ -27,6 +44,7 @@ const AdminDashboard = () => {
                   date
                   price
                   capacity
+                  image_url
                 }
               }
             `,
@@ -65,63 +83,163 @@ const AdminDashboard = () => {
           `,
         }),
       });
-  
+
       const data = await response.json();
       if (data.errors) {
         throw new Error(data.errors[0].message);
       }
-  
+
       setEvents(events.filter((event) => event.event_id !== eventId));
     } catch (error) {
       console.error("Error deleting event:", error);
     }
   };
-  
 
-  if (loading) return <Typography>Loading events...</Typography>;
-  if (error) return <Typography color="error">Error: {error}</Typography>;
+  if (loading) return <CircularProgress color="primary" />;
+  if (error) return <Alert severity="error">{error}</Alert>;
 
   return (
     <Container>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" gutterBottom align="center" sx={{ margin: 4 }}>
         Admin Dashboard
       </Typography>
       <Button
-        variant="contained"
+        variant="outlined"
         color="primary"
         onClick={() => navigate("/admin/events/new")}
-        style={{ marginBottom: "20px" }}
+        sx={{
+          marginBottom: "20px",
+          padding: "10px 20px",
+          borderColor: "#1976d2",
+          color: "#1976d2",
+          "&:hover": {
+            borderColor: "#1565c0",
+            color: "#1565c0",
+          },
+        }}
+        startIcon={<AddIcon />}
       >
         Add Event
       </Button>
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
         {events.map((event) => (
           <Grid item xs={12} sm={6} md={4} key={event.event_id}>
-            <Card>
-              <CardContent>
-                <Typography variant="h5">{event.title}</Typography>
-                <Typography color="textSecondary">{event.location}</Typography>
-                <Typography variant="body2">{event.description}</Typography>
-                <Typography variant="body2">
-                  Date: {new Date(event.date).toLocaleDateString()}
+            <Card
+              sx={{
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: 3,
+                "&:hover": {
+                  transform: "scale(1.02)",
+                  transition: "transform 0.2s",
+                  boxShadow: 6,
+                },
+              }}
+            >
+              {event.image_url && (
+                <img
+                src={event.image_url ? event.image_url : logo} 
+                alt={event.title}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = logo; 
+                }}
+                style={{
+                  width: "100%",
+                  height: "150px",
+                  objectFit: "cover",
+                  borderTopLeftRadius: "4px",
+                  borderTopRightRadius: "4px",
+                  }}
+                />
+              )}
+              <CardContent sx={{ flexGrow: 1 }}>
+                <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+                  {event.title}
                 </Typography>
-                <Typography variant="body2">Price: {event.price}</Typography>
-                <Typography variant="body2">Capacity: {event.capacity}</Typography>
+                <Typography variant="subtitle1" sx={{ color: "#555" }}>
+                  <EventIcon
+                    sx={{
+                      fontSize: "1rem",
+                      verticalAlign: "middle",
+                      marginRight: 0.5,
+                    }}
+                  />
+                  {new Intl.DateTimeFormat("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  }).format(new Date(event.date))}
+                </Typography>
+
+                <Typography variant="subtitle1" sx={{ color: "#555" }}>
+                  <GroupIcon
+                    sx={{
+                      fontSize: "1rem",
+                      verticalAlign: "middle",
+                      marginRight: 0.5,
+                    }}
+                  />
+                  {event.capacity ? event.capacity : "Unlimited"}
+                </Typography>
+                <Typography variant="subtitle1" sx={{ color: "#555" }}>
+                  <MonetizationOnIcon
+                    sx={{
+                      fontSize: "1rem",
+                      verticalAlign: "middle",
+                      marginRight: 0.5,
+                    }}
+                  />
+                  {event.price ? `$${event.price}` : "Free"}
+                </Typography>
+                <Typography variant="body2" sx={{ marginTop: 1 }}>
+                  {event.description}
+                </Typography>
               </CardContent>
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={() => navigate(`/admin/events/edit/${event.event_id}`)}
+              <CardActions
+                sx={{
+                  justifyContent: "center",
+                }}
               >
-                Edit
-              </Button>
-              <Button
-                variant="outlined"
-                color="secondary"
-                onClick={() => handleDelete(event.event_id)}
-              >
-                Delete
-              </Button>
+                <Button
+                  variant="outlined"
+                  sx={{
+                    marginRight: "10px",
+                    marginBottom: "10px",
+                    padding: "8px 15px",
+                    borderColor: "#9c27b0",
+                    color: "#9c27b0",
+                    "&:hover": {
+                      borderColor: "#7b1fa2",
+                      color: "#7b1fa2",
+                    },
+                  }}
+                  onClick={() =>
+                    navigate(`/admin/events/edit/${event.event_id}`)
+                  }
+                  startIcon={<EditIcon />}
+                >
+                  Edit
+                </Button>
+                <Button
+                  variant="outlined"
+                  sx={{
+                    marginBottom: "10px",
+                    padding: "8px 15px",
+                    borderColor: "#f44336", 
+                    color: "#f44336", 
+                    "&:hover": {
+                      borderColor: "#e53935", 
+                      color: "#e53935", 
+                    },
+                  }}
+                  onClick={() => handleDelete(event.event_id)}
+                  startIcon={<DeleteIcon />}
+                >
+                  Delete
+                </Button>
+              </CardActions>
             </Card>
           </Grid>
         ))}

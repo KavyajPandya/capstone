@@ -37,7 +37,7 @@ export const resolvers = {
         }
     },
     Mutation: {
-        addEvent: async (_, { event_id, title, location, description, date, price, capacity }) => {
+        addEvent: async (_, { event_id, title, location, description, date, price, capacity, image_url }) => {
             try {
                 const newEvent = new events({
                     event_id,
@@ -46,7 +46,8 @@ export const resolvers = {
                     description,
                     date: new Date(date), 
                     price,
-                    capacity
+                    capacity,
+                    image_url
                 });
                 return await newEvent.save();
             } catch (err) {
@@ -62,22 +63,23 @@ export const resolvers = {
             }
         },
         updateEvent: async (_, { event_id, title, location, description, date, price, capacity, image_url }) => {
-        try {
-            const updatedEvent = await events.findOneAndUpdate(
-            { event_id }, 
-            { title, location, description, date: new Date(date), price, capacity, image_url }, 
-            { new: true } 
-            );
-        
-            if (!updatedEvent) {
-            throw new Error("Event not found");
+            try {
+              const updatedEvent = await events.findOneAndUpdate(
+                { event_id },
+                { title, location, description, date: new Date(date), price, capacity, image_url },
+                { new: true }
+              );
+          
+              if (!updatedEvent) {
+                throw new Error("Event not found");
+              }
+          
+              return updatedEvent;
+            } catch (err) {
+              throw new Error("Error updating event: " + err.message);
             }
-        
-            return updatedEvent;
-        } catch (err) {
-            throw new Error("Error updating event: " + err.message);
-        }
-        },
+          },
+
         signup: async (_, { fullName, email, password, mobile }) => {
             try {
                 const newUser = new User({

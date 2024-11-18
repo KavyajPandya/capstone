@@ -12,6 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import EventIcon from "@mui/icons-material/Event";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import GroupIcon from "@mui/icons-material/Group";
 
 const EventsPage = () => {
@@ -140,16 +141,23 @@ const EventsPage = () => {
                 </Typography>
               </CardContent>
               <Button
-                variant="contained"
-                color="primary"
+                variant="outlined"
+                color="primary" 
                 sx={{
                   margin: 1,
                   alignSelf: "center",
                   height: "48px",
-                  width: "90%",
+                  width: "60%",
+                  borderColor: "#1976d2", 
+                  color: "#1976d2", 
+                  "&:hover": {
+                    borderColor: "#1565c0", 
+                    color: "#1565c0",
+                  },
                 }}
                 component={Link}
                 to={`/events/${event.event_id}`}
+                startIcon={<VisibilityIcon />} 
               >
                 View Details
               </Button>

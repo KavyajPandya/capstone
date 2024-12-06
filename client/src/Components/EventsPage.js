@@ -62,7 +62,7 @@ const EventsPage = () => {
         }
 
         setEvents(data.data.events);
-        setFilteredEvents(data.data.events); // Set initially filtered events
+        setFilteredEvents(data.data.events); 
       } catch (error) {
         setError(error.message);
       } finally {
@@ -73,7 +73,6 @@ const EventsPage = () => {
     fetchEvents();
   }, []);
 
-  // Handle Filters
   useEffect(() => {
     let filtered = [...events];
 

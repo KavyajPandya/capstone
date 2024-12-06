@@ -7,6 +7,8 @@ import ExploreKWC from './Components/ExploreKWC';
 import ExploreWaterloo from './Components/ExploreWaterloo';
 import EventsPage from './Components/EventsPage';
 import EventDetailsPage from './Components/EventDetailsPage';
+import CheckoutPage from './Components/CheckoutPage';
+import PayPalPayment from './Components/PayPalPayment';
 import AdminDashboard from './Components/AdminDashboard';
 import EventForm from './Components/EventForm';
 import NavBar from './Components/NavBar';
@@ -35,6 +37,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="*" element={<ExploreKWC />} />
+          <Route path="/checkout/:event_id" element={<CheckoutPage />} />
+          <Route path="/paypal-payment/:event_id" element={<PayPalPayment />} />
         </Routes>
       </div>
     </>

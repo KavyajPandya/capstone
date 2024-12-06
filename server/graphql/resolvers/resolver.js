@@ -79,7 +79,27 @@ export const resolvers = {
               throw new Error("Error updating event: " + err.message);
             }
           },
-
+        bookEvent: async (_, { event_id, email }) => {
+            console.log('id...!!',event_id)
+            const event = await events.findOne({event_id});
+            console.log('event...!!',event)
+            if (!event) {
+                throw new Error('Event not found');
+            }
+        
+            if (event.capacity <= 0) {
+                throw new Error('Event is fully booked');
+            }
+        
+            // Reduce capacity
+            event.capacity -= 1;
+            await event.save();
+        
+            return {
+                success: true,
+                message: event.price > 0 ? 'Redirecting to payment' : 'Booking confirmed!',
+            };
+        },
         signup: async (_, { fullName, email, password, mobile }) => {
             try {
                 const newUser = new User({

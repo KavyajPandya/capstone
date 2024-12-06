@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Typography, Card, CardContent, Button } from '@mui/material';
 
 const EventDetailsPage = () => {
     const { event_id } = useParams();
+    const navigate = useNavigate(); 
     const [event, setEvent] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -62,6 +63,19 @@ const EventDetailsPage = () => {
         })
         : "Date not available";
 
+    const handleBookEvent = () => {
+        // if (event.capacity === '0') {
+        //     alert("This event is full!");
+        //     return;
+        // }
+        if (event.price != 'Free') {
+            navigate(`/paypal-payment/${event.event_id}`);
+        } else {
+            navigate(`/checkout/${event.event_id}`, { state: { event } });        }
+        // Redirect to CheckoutPage and pass event details
+        //navigate(`/checkout/${event.event_id}`, { state: { event } });
+    };
+
     return (
         <Container sx={{ marginTop: 4 }}>
             <Card sx={{ display: 'flex', flexDirection: 'column', padding: 2 }}>
@@ -82,7 +96,15 @@ const EventDetailsPage = () => {
                     <Typography variant="body1" paragraph>{event.description}</Typography>
                     <Typography variant="body2">Date: {formattedDate}</Typography>
                     <Typography variant="body2">Price: {event.price}</Typography>
-                    {event.capacity && <Typography variant="body2">Capacity: {event.capacity}</Typography>}
+                    {event.capacity && (
+                        <Typography variant="body2">Capacity: {event.capacity}</Typography>
+                    )}
+                    {event.capacity === '0' && (
+                        <Typography variant="body2" color="error" sx={{ marginTop: 2 }}>
+                            This event is full!
+                        </Typography>
+                    )}
+                    {/* {event.capacity && <Typography variant="body2">Capacity: {event.capacity}</Typography>} */}
                     <Button 
                         variant="contained" 
                         color="primary" 
@@ -90,6 +112,15 @@ const EventDetailsPage = () => {
                         onClick={() => window.history.back()}
                     >
                         Back to Events
+                    </Button>
+                    <Button 
+                        variant="contained" 
+                        color="primary" 
+                        sx={{ marginTop: 2 }}
+                        disabled={event.capacity === '0'}
+                        onClick={handleBookEvent}
+                    >
+                        Book
                     </Button>
                 </CardContent>
             </Card>

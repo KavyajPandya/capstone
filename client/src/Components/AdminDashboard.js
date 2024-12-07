@@ -10,6 +10,7 @@ import {
   CardActions,
   CircularProgress,
   Alert,
+  Box,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -18,6 +19,7 @@ import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import AddIcon from "@mui/icons-material/Add";
 import GroupIcon from "@mui/icons-material/Group";
 import logo from '../../public/assets/images/blue-logo-transepernt.png';
+
 
 const AdminDashboard = () => {
   const [events, setEvents] = useState([]);
@@ -100,9 +102,22 @@ const AdminDashboard = () => {
 
   return (
     <Container>
-      <Typography variant="h4" gutterBottom align="center" sx={{ margin: 4 }}>
+      <Box
+      style={{
+        width: "100%",
+        backgroundColor: "rgb(1, 92, 166)",
+        textAlign: "center",
+        display: "flex",
+        boxSizing: "border-box",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+      >
+      <Typography variant="h4" gutterBottom align="center" sx={{ margin: 4, color:'white' }}>
         Admin Dashboard
       </Typography>
+      </Box>
+      
       <Button
         variant="outlined"
         color="primary"

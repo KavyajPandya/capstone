@@ -3,10 +3,15 @@ import { NavLink } from "react-router-dom";
 import { useTheme, useMediaQuery } from "@mui/material";
 import logo from '../../public/assets/images/blue-logo-transepernt.png'; 
 
-export default function NavBar() {
+export default function NavBar({ isLoggedIn, setIsLoggedIn }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm")); 
   const isTablet = useMediaQuery(theme.breakpoints.down("md"));
+
+  const handleLogout = () => {
+    localStorage.removeItem("user"); 
+    setIsLoggedIn(false); 
+  };
 
   return (
     <nav
@@ -87,7 +92,36 @@ export default function NavBar() {
       >
         <h1>Events</h1>
       </NavLink>
-      <NavLink
+      {isLoggedIn ? (
+        <NavLink
+          onClick={handleLogout}
+          style={{
+            textDecoration: "none",
+            color: "white",
+            fontSize: isMobile ? "0.6rem" : isTablet ? "0.8rem" : "1.5rem",
+            fontWeight: isMobile ? "normal" : "bold",
+            marginRight:'0%',
+            marginLeft:'auto'
+          }}
+        >
+          Logout
+        </NavLink>
+      ) : (
+        <NavLink to="/login" 
+        style={{ 
+          textDecoration: "none",
+          color: "white",
+          fontSize: isMobile ? "0.6rem" : isTablet ? "0.8rem" : "1.5rem",
+          fontWeight: isMobile ? "normal" : "bold",
+          marginRight:'0%',
+          marginLeft:'auto'
+        }}>
+          Login
+        </NavLink>
+      )}
+
+
+      {/* <NavLink
         style={{
           textDecoration: "none",
           color: "white",
@@ -97,7 +131,7 @@ export default function NavBar() {
         to="/login"
       >
         <h1>Login</h1>
-      </NavLink>
+      </NavLink> */}
     </nav>
   );
 }

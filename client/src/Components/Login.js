@@ -13,7 +13,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { AccountCircle, Lock, Visibility, VisibilityOff } from "@mui/icons-material";
 
-export default function Login() {
+export default function Login({ setIsLoggedIn }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -68,6 +68,8 @@ export default function Login() {
       } else {
         setMessage(data.data.login.message);
         setError(false);
+        localStorage.setItem("user", JSON.stringify(data.data.login.user));
+        setIsLoggedIn(true); 
         navigate("/events");
       }
       setOpen(true);

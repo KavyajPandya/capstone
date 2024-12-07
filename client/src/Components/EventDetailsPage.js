@@ -10,6 +10,7 @@ const EventDetailsPage = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+       
         const fetchEventDetails = async () => {
             try {
                 const response = await fetch('http://localhost:4005/graphql', {
@@ -68,10 +69,18 @@ const EventDetailsPage = () => {
         //     alert("This event is full!");
         //     return;
         // }
+        const user = localStorage.getItem("user"); 
+        if (!user) {
+            alert('Please login to book this event.');
+            navigate('/login'); 
+            return;
+        }
+
         if (event.price != 'Free') {
             navigate(`/paypal-payment/${event.event_id}`);
         } else {
-            navigate(`/checkout/${event.event_id}`, { state: { event } });        }
+            navigate(`/checkout/${event.event_id}`, { state: { event } });            
+        }
         // Redirect to CheckoutPage and pass event details
         //navigate(`/checkout/${event.event_id}`, { state: { event } });
     };

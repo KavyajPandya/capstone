@@ -123,13 +123,14 @@ const AdminDashboard = () => {
         color="primary"
         onClick={() => navigate("/admin/events/new")}
         sx={{
-          marginBottom: "20px",
+          margin: "2%",
           padding: "10px 20px",
           borderColor: "#1976d2",
-          color: "#1976d2",
+          backgroundColor:'#1976d2',
+          color: "#eee",
           "&:hover": {
-            borderColor: "#1565c0",
-            color: "#1565c0",
+            borderColor: "#1976d2",
+            color: "#eee",
           },
         }}
         startIcon={<AddIcon />}
@@ -206,7 +207,7 @@ const AdminDashboard = () => {
                       marginRight: 0.5,
                     }}
                   />
-                  {event.price ? `$${event.price}` : "Free"}
+                  {event.price ? `${event.price}` : "Free"}
                 </Typography>
                 <Typography variant="body2" sx={{ marginTop: 1 }}>
                   {event.description}

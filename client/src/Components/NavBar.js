@@ -35,13 +35,15 @@ export default function NavBar({ isLoggedIn, setIsLoggedIn }) {
         style={{
           height: isMobile ? "0" : "100%", 
           marginRight: isMobile ? "0" : "10px",
+          marginRight:'auto',
+          marginLeft:'0%'
         }}
       />
       <NavLink
         style={{
           textDecoration: "none",
           color: "white",
-          fontSize: isMobile ? "0.6rem" : isTablet ? "0.8rem" : "1rem",
+          fontSize: isMobile ? "0.6rem" : isTablet ? "0.8rem" : "0.8rem",
           fontWeight: isMobile ? "normal" : "bold", 
         }}
         to="/"
@@ -52,7 +54,7 @@ export default function NavBar({ isLoggedIn, setIsLoggedIn }) {
         style={{
           textDecoration: "none",
           color: "white",
-          fontSize: isMobile ? "0.6rem" : isTablet ? "0.8rem" : "1rem",
+          fontSize: isMobile ? "0.6rem" : isTablet ? "0.8rem" : "0.8rem",
           fontWeight: isMobile ? "normal" : "bold", 
         }}
         to="/ExploreKWC/kitchener"
@@ -63,7 +65,7 @@ export default function NavBar({ isLoggedIn, setIsLoggedIn }) {
         style={{
           textDecoration: "none",
           color: "white",
-          fontSize: isMobile ? "0.6rem" : isTablet ? "0.8rem" : "1rem",
+          fontSize: isMobile ? "0.6rem" : isTablet ? "0.8rem" : "0.8rem",
           fontWeight: isMobile ? "normal" : "bold", 
         }}
         to="/ExploreKWC/waterloo"
@@ -74,7 +76,7 @@ export default function NavBar({ isLoggedIn, setIsLoggedIn }) {
         style={{
           textDecoration: "none",
           color: "white",
-          fontSize: isMobile ? "0.6rem" : isTablet ? "0.8rem" : "1rem",
+          fontSize: isMobile ? "0.6rem" : isTablet ? "0.8rem" : "0.8rem",
           fontWeight: isMobile ? "normal" : "bold", 
         }}
         to="/ExploreKWC/cambridge"
@@ -85,7 +87,7 @@ export default function NavBar({ isLoggedIn, setIsLoggedIn }) {
         style={{
           textDecoration: "none",
           color: "white",
-          fontSize: isMobile ? "0.6rem" : isTablet ? "0.8rem" : "1rem",
+          fontSize: isMobile ? "0.6rem" : isTablet ? "0.8rem" : "0.8rem",
           fontWeight: isMobile ? "normal" : "bold", 
         }}
         to="/events"
@@ -98,7 +100,7 @@ export default function NavBar({ isLoggedIn, setIsLoggedIn }) {
           style={{
             textDecoration: "none",
             color: "white",
-            fontSize: isMobile ? "0.6rem" : isTablet ? "0.8rem" : "1.5rem",
+            fontSize: isMobile ? "0.6rem" : isTablet ? "0.8rem" : "1.2rem",
             fontWeight: isMobile ? "normal" : "bold",
             marginRight:'0%',
             marginLeft:'auto'
@@ -111,7 +113,7 @@ export default function NavBar({ isLoggedIn, setIsLoggedIn }) {
         style={{ 
           textDecoration: "none",
           color: "white",
-          fontSize: isMobile ? "0.6rem" : isTablet ? "0.8rem" : "1.5rem",
+          fontSize: isMobile ? "0.6rem" : isTablet ? "0.8rem" : "1.2rem",
           fontWeight: isMobile ? "normal" : "bold",
           marginRight:'0%',
           marginLeft:'auto'

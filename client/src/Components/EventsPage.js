@@ -103,10 +103,10 @@ const EventsPage = () => {
 
   return (
     <Container>
-      <Typography variant="h4" gutterBottom align="center" sx={{ margin: 4 }}>
+      {/* <Typography variant="h4" gutterBottom align="center" sx={{ margin: 4 }}>
         Events
-      </Typography>
-      <Grid container spacing={3}>
+      </Typography> */}
+      <Grid container spacing={3} sx={{ boxShadow: 0, margin: '2% 0', borderRadius: 1 }}>
         {/* Filters Section */}
         <Grid item xs={12} md={3}>
           <Box sx={{ boxShadow: 3, padding: 2, borderRadius: 1 }}>
@@ -114,7 +114,7 @@ const EventsPage = () => {
               Filter Events
             </Typography>
             <FormControl fullWidth sx={{ marginBottom: 2 }}>
-              <InputLabel>Location</InputLabel>
+              <InputLabel >Location</InputLabel>
               <Select
                 value={locationFilter}
                 onChange={(e) => setLocationFilter(e.target.value)}

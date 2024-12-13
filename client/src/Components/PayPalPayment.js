@@ -11,13 +11,13 @@ const PayPalPayment = ({ event }) => {
     };
 
     return (
-        <PayPalScriptProvider options={{ "client-id": "YOUR_CLIENT_ID" }}>
+        <PayPalScriptProvider options={{ "client-id": "ARHQu_yOQYNigMGwNVsvrsPP9EbVfcj6Gs2ZTH4E06RezZU2rdq4fa89Ycy2A5IYO72o9OkR3zd-D6K0" }}>
             <div style={{ marginTop: 20 }}>
                 {/* <h3>Pay for {event.title}</h3> */}
                 <h3>Pay for </h3>
                 <PayPalButtons
-                    style={{ layout: 'vertical' }}
-                    createOrder={(data, actions) => {
+                style={{ shape: "pill", layout: "horizontal" }}
+                createOrder={(data, actions) => {
                         return actions.order.create({
                             purchase_units: [
                                 {
@@ -28,11 +28,11 @@ const PayPalPayment = ({ event }) => {
                             ],
                         });
                     }}
-                    onApprove={(data, actions) => {
-                        return actions.order.capture().then(() => {
-                            handleApprove(data.orderID);
-                        });
-                    }}
+                    // onApprove={(data, actions) => {
+                    //     return actions.order.capture().then(() => {
+                    //         handleApprove(data.orderID);
+                    //     });
+                    // }}
                     onError={(err) => {
                         alert('Payment failed. Please try again.');
                     }}

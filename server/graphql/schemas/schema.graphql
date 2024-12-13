@@ -31,6 +31,11 @@ type Query {
     success: Boolean!
     message: String!
 }
+type PaymentIntent {
+        id: String!
+        clientSecret: String!
+        status: String
+}
 
 type Mutation {
     addEvent(
@@ -43,6 +48,8 @@ type Mutation {
         capacity: String,
         image_url: String
     ): Event
+
+
     
     deleteEvent(eventId: ID!): Boolean
 
@@ -85,4 +92,8 @@ type Mutation {
         email: String!,
         newPassword: String!
     ): AuthResponse  # Added resetPassword mutation
+
+    createPaymentIntent(description: String!, amount: Float!): PaymentIntent
+    capturePayment(orderId: String!): PaymentIntent
+
 }

@@ -2,6 +2,8 @@ import { events } from "../../model/events.js";
 import { User } from "../../model/user.js"; 
 import { sendWelcomeEmail, sendResetCodeEmail } from '../../emailService.js'; 
 import crypto from 'crypto';
+import paypal from '@paypal/checkout-server-sdk'; // Ensure PayPal SDK is correctly imported
+import client from '../../Paypal/paypalClient.js'; // Assuming PayPal client is configured and exported
 
 export const resolvers = {
     Query: {
@@ -78,7 +80,7 @@ export const resolvers = {
             } catch (err) {
               throw new Error("Error updating event: " + err.message);
             }
-          },
+        },
         bookEvent: async (_, { event_id, email }) => {
             console.log('id...!!',event_id)
             const event = await events.findOne({event_id});
@@ -100,6 +102,48 @@ export const resolvers = {
                 message: event.price > 0 ? 'Redirecting to payment' : 'Booking confirmed!',
             };
         },
+        createPaymentIntent: async (_, { description, amount }) => {
+            console.log('Description and Amount', description, amount);
+            const request = new paypal.orders.OrdersCreateRequest();
+            request.prefer("return=representation");
+            request.requestBody({
+                intent: "CAPTURE",
+                purchase_units: [{
+                    amount: {
+                        currency_code: "USD",
+                        value: amount.toFixed(2),
+                    },
+                    description,
+                }],
+            });
+
+            try {
+                const response = await client.execute(request);
+                return {
+                    id: response.result.id,
+                    clientSecret: response.result.id, // This can be used as client secret if needed
+                    status: response.result.status,
+                };
+            } catch (error) {
+                console.error("Error creating payment intent:", error);
+                throw new Error("Failed to create payment intent");
+            }
+        },
+        capturePayment: async (_, { orderId }) => {
+            const request = new paypal.orders.OrdersCaptureRequest(orderId);
+            request.requestBody({});
+
+            try {
+                const response = await client.execute(request);
+                return {
+                    id: response.result.id,
+                    status: response.result.status,
+                };
+            } catch (error) {
+                console.error("Error capturing payment:", error);
+                throw new Error("Failed to capture payment");
+            }
+        },
         signup: async (_, { fullName, email, password, mobile }) => {
             try {
                 const newUser = new User({
@@ -110,7 +154,6 @@ export const resolvers = {
                 });
                 await newUser.save();
 
-                
                 await sendWelcomeEmail(email, fullName);
 
                 return newUser;
@@ -125,7 +168,6 @@ export const resolvers = {
                     throw new Error('No user found with this email');
                 }
 
-                
                 const isMatch = await user.comparePassword(password);
                 if (!isMatch) {
                     throw new Error('Incorrect password');
@@ -166,12 +208,10 @@ export const resolvers = {
                     throw new Error('User not found');
                 }
 
-
                 const newPassword = Math.random().toString(36).slice(-8); 
                 user.password = newPassword; 
                 await user.save(); 
 
-               
                 await sendResetCodeEmail(email, `Your new password is: ${newPassword}`);
 
                 return 'Verification code is valid. A new password has been sent to your email.';
